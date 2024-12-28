@@ -1,0 +1,29 @@
+1. windows fiber
+(1) 
+ConvertThreadToFiber(param)
+ConvertThreadToFiberEx(param,dwFlags): FIBER_FLAG_FLOAT_SWITCH
+
+(2)
+CreateFiber(stackSize, pfunc, param)
+CreateFiberEx(stackCommitSize, stachReserveSize, dwFlag, pfunc, param): stackCommitSize/stachReserveSize初始物理存储/预定虚拟存储，FIBER_FLAG_FLOAT_SWITCH；
+
+VOID WINAPI FiberFunc(PVOID pvParam);
+
+
+
+(3) 
+SwitchToFiber(pfctx): 将新fiber切换到执行状态，是fiber获取cpu的唯一方法，app需要显示调用这个函数完成切换。
+    1）保存当前fiber的现场，
+    2) 恢复即将运行的fiber现场
+    3) 新fiber的上下文和thread关联，线程运行fiber，
+    4) 线程指令指针指向fiber的PC；
+
+GetCurrentFiber()
+
+GetFiberData()
+
+(4) 
+DeleteFiber(pfctx)
+
+(5) FlsAloc/FlsFree/FlsSetValue
+
